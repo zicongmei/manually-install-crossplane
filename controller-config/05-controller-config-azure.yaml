@@ -1,0 +1,23 @@
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: cra-config-azure
+  labels:
+    azure.workload.identity/use: "true"
+spec:
+  args:
+  - --debug
+  - --enable-management-policies
+  serviceAccountName: cloud-resource-accelerator-provider-azure
+  volumeMounts:
+  - mountPath: /var/run/secrets/workload-identity-token/serviceaccount
+    name: workload-identity-token
+    readOnly: true
+  volumes:
+  - name: workload-identity-token
+    projected:
+      sources:
+      - serviceAccountToken:
+          path: token
+          expirationSeconds: 3600
+          audience: api://AzureADTokenExchange

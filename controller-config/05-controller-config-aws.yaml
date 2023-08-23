@@ -1,0 +1,14 @@
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: cra-config-aws
+spec:
+  args:
+  - --debug
+  - --enable-management-policies
+  env:
+  - name: AWS_WEB_IDENTITY_TOKEN_FILE
+    value: /var/run/secrets/kubernetes.io/serviceaccount/token
+  - name: AWS_ROLE_ARN
+    value: PLACEHOLDER
+  serviceAccountName: cloud-resource-accelerator-provider-aws

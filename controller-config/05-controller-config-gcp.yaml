@@ -1,0 +1,12 @@
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: cra-config-gcp
+spec:
+  serviceAccountName: cloud-resource-accelerator-provider-gcp
+  args:
+  - --debug
+  - --enable-management-policies
+  env:
+  - name: USER_PROJECT_OVERRIDE
+    value: "true"

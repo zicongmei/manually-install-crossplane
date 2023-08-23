@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cloud-resource-accelerator-provider-gcp
+  namespace: crossplane-system
+#  annotations:
+#    iam.gke.io/gcp-service-account: ${DATA_PLANE_SA?}

@@ -1,0 +1,22 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-anthos-azure
+spec:
+  controllerConfigRef:
+    name: cra-config-azure
+  package: gcr.io/krmapihosting-release/provider-azure-amd64:v0.32.0-gke.0@sha256:9489fa2fefb3de8fcc95619cc1d2e9dcafc9fb20ea57743bea627c4c7303898f
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: crossplane:provider:provider-anthos-azure:system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  # Note: the hexadecimal string here must match the first 12 characters of the image digest on line 8 above
+  name: crossplane:provider:provider-anthos-azure-9489fa2fefb3:system
+subjects:
+- kind: ServiceAccount
+  name: cloud-resource-accelerator-provider-azure
+  namespace: crossplane-system
